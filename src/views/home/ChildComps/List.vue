@@ -34,5 +34,7 @@ export default {
   widows: 60px;
   height: 60px;
 }
-
+.title{
+    font-size: 14px;
+}
 </style>

@@ -1,9 +1,11 @@
 <template>
-  <div class="card">
-    <div class="card-item" v-for="(item,index) in opationcard" 
-    :key="item" @click="itemclick(index)" :class="{active: index === currentIndex}">
-      <span>{{item}}</span>
-    </div>   
+  <div class="back"> 
+    <div class="card">
+      <div class="card-item" v-for="(item,index) in opationcard" 
+      :key="item" @click="itemclick(index)" :class="{active: index === currentIndex}">
+        <span>{{item}}</span>
+      </div>   
+    </div>
   </div>
 </template>
 
@@ -19,6 +21,7 @@ export default {
   methods: {
     itemclick(index){
       this.currentIndex = index;
+      this.$emit('optioncard',index);
       // console.log(index);
     }
   },
@@ -34,6 +37,10 @@ export default {
 </script>
 
 <style scoped>
+.back{
+  padding: 6px;
+  background-color: white;
+}
 .card {
   display: flex;
   justify-content: space-around;

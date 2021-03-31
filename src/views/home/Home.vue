@@ -6,62 +6,18 @@
     <home-swiper :cbanners="banners"></home-swiper>
     <list :recommends="recommends"></list>
     <midimg></midimg>
-     <option-card class="tabcontrol-item" :opationcard="['流行','新款','精选']"></option-card>
-    <ul>
-      <li>1</li>
-       <li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li>
-          <li>1</li>
-       <li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li>
-          <li>1</li>
-       <li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li>
-          <li>1</li>
-       <li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li><li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li>
-          <li>1</li>
-       <li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li>
-          <li>1</li>
-       <li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li><li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li>
-          <li>1</li>
-       <li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li>
-          <li>1</li>
-       <li>1</li>
-        <li>1</li>
-         <li>1</li>
-          <li>1</li>
-          
-    </ul>  
+    <option-card class="tabcontrol-item" :opationcard="['流行','新款','精选']"
+    @optioncard ="optioncard1"
+    ></option-card>
+    <!-- 传值注意 goods['pop'].list-->
+    <home-img :goods="showimg"/>
   </div>
 </template>
 <script>
 //公共的
 import NavBar from 'components/common/NavBar';
 import OptionCard from 'components/content/TabControl/OptionCard.vue'
+import HomeImg from 'components/content/HomeImg/HomeImg'
 
 //子组件的
 import HomeSwiper from './ChildComps/HomeSwiper.vue';
@@ -69,13 +25,14 @@ import List from "./ChildComps/List.vue"
 import midimg from './ChildComps/midimg.vue'
 
 //Axios的
-import {getHomeMultidata} from 'network/home';
+import {getHomeMultidata,getHomeImgdata} from 'network/home';
 
   export default {
     name: "Home",
     components:{
       NavBar,
       OptionCard,
+      HomeImg,
       HomeSwiper,
       List,
       midimg,
@@ -84,14 +41,54 @@ import {getHomeMultidata} from 'network/home';
       return {
         banners:[],
         recommends:[],
-        opationcard:[]
+        opationcard:[],
+        goods:{
+          'pop':{page: 0,list:[],},
+          'new':{page:0,list:[],},
+          'sell':{page:0,list:[],}
+        },
+        currentType:'pop'
       }
     },
     created(){
-      getHomeMultidata().then(res=>{
-        this.banners = res.data.banner.list;   
+      this.getHomeMultidata();
+      this.getHomeImgdata('pop');
+      this.getHomeImgdata('new');
+      this.getHomeImgdata('sell');
+    },
+    methods: {
+      /**事件监听相关方法 */
+      optioncard1(index){
+        // console.log(index);
+        switch(index){
+            case 0:
+              this.currentType = 'pop'; break;
+            case 1:
+              this.currentType = 'new'; break;
+            case 2:
+              this.currentType = 'sell'; break;
+        }
+      },
+      /* 网路请求相关 */
+      getHomeMultidata(){
+        getHomeMultidata().then(res=>{
+        this.banners = res.data.banner.list;  
         this.recommends = res.data.recommend.list;   
       })
+      },
+      getHomeImgdata(type){
+       let pages = this.goods[type].page +1;
+        getHomeImgdata(type,pages).then(res=>{         
+          // console.log(res.data.list);
+          this.goods[type].list.push(...res.data.list);
+          this.goods[type].page +=1;
+        })
+      }
+    },
+    computed:{
+      showimg(){
+       return  this.goods[this.currentType].list
+      }
     }
   }
 
@@ -99,7 +96,7 @@ import {getHomeMultidata} from 'network/home';
 
 <style scoped>
 #home{
-  padding-top: 44px;
+  padding-top: 43px;
 }
 .nav{
   background-color: var(--color-tint);
@@ -112,6 +109,7 @@ import {getHomeMultidata} from 'network/home';
 }
 .tabcontrol-item{
   position: sticky;
-  top:45px;
+  top:43px;
+  z-index: 1;
 }
 </style>
