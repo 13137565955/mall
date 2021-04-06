@@ -5,7 +5,7 @@
   </nav-bar>
   <div class="wrapper">
     <ul class="content">
-      <li>分类列表1</li>
+      <li @click="itemclick">分类列表1</li>
       <li>分类列表2</li>
       <li>分类列表3</li>
       <li>分类列表4</li>
@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import BetterScroll from 'better-scroll'
+import BetterScroll, { PullUpLoad } from 'better-scroll'
 
 import NavBar from 'components/common/NavBar'
   export default {
@@ -120,8 +120,26 @@ import NavBar from 'components/common/NavBar'
     components:{
       NavBar
     },
+    methods: {
+      itemclick(){
+        console.log("a");
+      }
+    },
     mounted() {    
-     new BetterScroll('.wrapper', {
+    let scroll = new BetterScroll('.wrapper', {
+      click:true,
+      pullUpLoad:true,
+      probeType:3
+      })
+      scroll.on('pullingUp',()=>{
+        console.log("aaa");
+        setTimeout(()=>{
+           scroll.finishPullUp();
+        },2000)
+       
+      })
+      scroll.on('scroll',(position)=>{
+        // console.log(position);
       })
     }
   }
