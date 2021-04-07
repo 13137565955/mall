@@ -3,33 +3,41 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [{
-  path: '',
-  redirect: '/home'
-}, {
-  path: '/home',
-  meta: {
-    title: '首页'
+    path: '',
+    redirect: '/home'
+  }, {
+    path: '/home',
+    meta: {
+      title: '首页'
+    },
+    component: () => import('../views/home/Home')
+  }, {
+    path: '/cart',
+    meta: {
+      title: '购物车'
+    },
+    component: () => import('../views/cart/Cart')
+  }, {
+    path: '/category',
+    meta: {
+      title: '分类'
+    },
+    component: () => import('../views/category/Category')
+  }, {
+    path: '/profile',
+    meta: {
+      title: '我的'
+    },
+    component: () => import('../views/profile/Profile')
   },
-  component: () => import('../views/home/Home')
-}, {
-  path: '/cart',
-  meta: {
-    title: '购物车'
+  {
+    path: '/detail/:iid',
+    meta: {
+      title: '详情页'
+    },
+    component: () => import('../views/detail/detail')
   },
-  component: () => import('../views/cart/Cart')
-}, {
-  path: '/category',
-  meta: {
-    title: '分类'
-  },
-  component: () => import('../views/category/Category')
-}, {
-  path: '/profile',
-  meta: {
-    title: '我的'
-  },
-  component: () => import('../views/profile/Profile')
-}, ]
+]
 
 const router = new VueRouter({
   mode: 'history',

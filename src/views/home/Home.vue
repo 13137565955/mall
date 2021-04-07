@@ -36,7 +36,7 @@ import HomeSwiper from './ChildComps/HomeSwiper.vue';
 import List from "./ChildComps/List.vue"
 import midimg from './ChildComps/midimg.vue'
 
-//Axios的
+//Axios的gethomeimgitem
 import {getHomeMultidata,getHomeImgdata} from 'network/home';
 
   export default {

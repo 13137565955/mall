@@ -1,5 +1,5 @@
 <template>
-  <div class="home-img-item">
+  <div class="home-img-item" @click="homeitemclick">
     <img :src="goodsitem.show.img">
     <div class="home-img-info">
       <p>{{goodsitem.title}}</p>
@@ -19,7 +19,14 @@ export default {
       default(){
         return {}
       }}
-  }
+  },
+methods: {
+  //点击进入详情页面
+    homeitemclick(){    
+        // console.log(this.id);
+      this.$router.push('/detail/' + this.goodsitem.iid);
+    },
+},
 }
 </script>
 
