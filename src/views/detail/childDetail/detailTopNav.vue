@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="topNav">
     <nav-bar>
       <template v-slot:left>
         <img class="back" @click="backClick" src="~assets/img/common/back.svg">
@@ -38,6 +38,14 @@ export default {
 </script>
 
 <style scoped>
+.topNav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  background-color: #fff;
+}
 .top {
   display: flex;
   justify-content: space-around;

@@ -41,11 +41,13 @@ export default {
 
     if(this.pullUpLoad){
       this.scroll.on('pullingUp',()=>{
-        // console.log('再见更多');
+        // console.log('加载更多函数');
+        // this.scroll.refresh();
         this.$emit('pullingUp');
         // setTimeout(this.scroll.finishPullUp(),2000)  
       })
     }
+    //监听滚动
     if(this.probeType ===2 || this.probeType ===3){
       this.scroll.on('scroll',(position)=>{
         // console.log(position);
@@ -54,14 +56,17 @@ export default {
     }
   },
   methods: {
+    //返回顶部的位置是0，0时间是300ms
     scrollTo(x,y,time=300){
       this.scroll && this.scroll.scrollTo(x,y,time);
     },
     finishPullUp(){
+      //刷新，可以再一次下拉滚动
       // this.scroll.refresh();
      this.scroll &&  this.scroll.finishPullUp();
     },
     getscrolly(){
+      //得到滚动的高度y的值
       return this.scroll ? this.scroll.y : 0;
     }
   },
