@@ -45,6 +45,7 @@ export default {
 .goodscontent{
   margin-left: 10px;
    margin-right: 10px;
+   background-color: #fff;
 }
 .goodsone{
   margin-top: 14px;

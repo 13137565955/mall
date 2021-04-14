@@ -70,6 +70,7 @@ export default {
 .top-shopinfo{
     border-top: 6px solid #f2f2f2;
     border-bottom: 6px solid #f2f2f2;
+    background-color: #fff;
 }
 .shopinfo-one{
   margin-top: 20px;

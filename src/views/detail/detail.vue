@@ -1,12 +1,13 @@
 <template>
-  <div>
-    <detail-top-nav/>
-    <Scroll class="content">    
-      <detail-swiper :TopImgSwiper="TopImgSwiper"/>
-      <detail-top-goods :Goods="Goods"/>
-       <detail-top-shopinfo :Shop="Shop"/>
-    </Scroll>   
-  </div>
+    <div id="detali">
+      <detail-top-nav/>
+      <Scroll class="content">    
+        <detail-swiper :TopImgSwiper="TopImgSwiper"/>
+        <detail-top-goods :Goods="Goods"/>
+        <detail-top-shopinfo :Shop="Shop"/>
+        <sku-info-img :detailInfo="skuInfoImg"/>
+      </Scroll> 
+    </div>  
 </template>
 
 <script>
@@ -17,6 +18,7 @@ import detailSwiper from './childDetail/detailSwiperTab.vue'
 import detailTopNav from './childDetail/detailTopNav.vue'
 import detailTopGoods from './childDetail/detailTopGoods.vue'
 import detailTopShopinfo from './childDetail/detailTopShopinfo.vue'
+import skuInfoImg from './childDetail/skuInfoImg.vue'
 //公共组件
 import Scroll from 'components/common/Scroll/Scroll.vue'
 export default {
@@ -26,6 +28,7 @@ export default {
     detailTopNav,
     detailTopGoods,
     detailTopShopinfo,
+    skuInfoImg,
     Scroll,
     },
   data() {
@@ -34,6 +37,7 @@ export default {
       TopImgSwiper:[],
       Goods:{},
       Shop:{},
+      skuInfoImg:{},
     }
   },
   methods: {
@@ -49,6 +53,9 @@ export default {
         // console.log(this.Goods.title);
         //获取商铺信息
         this.Shop = new Shop(res.result.shopInfo);
+        //获取商品展示的图片
+        this.skuInfoImg = res.result.detailInfo;
+        // console.log(this.skuInfoImg);
        })
     }
   },
@@ -62,9 +69,13 @@ export default {
 </script>
 
 <style scoped>
+#detali{
+  position: relative;
+  z-index: 9;
+  background-color: #fff;
+  height: 100vh;
+}
 .content{
-  position: absolute;
-  top: 44px;
-  bottom: 60px;
+  height: calc(100% - 44px);
 }
 </style>

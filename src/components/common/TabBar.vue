@@ -11,7 +11,7 @@ export default {
 </script>
 <style scoped>
 #icon {
-  z-index: 9;
+  z-index: 1;
   display: flex;
   background-color: #f6f6f6;
   position: fixed;

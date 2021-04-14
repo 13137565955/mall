@@ -39,11 +39,12 @@ export default {
 
 <style scoped>
 .topNav{
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  z-index: 1;
+  right: 0; */
+  position: relative;
+  z-index: 9;
   background-color: #fff;
 }
 .top {
