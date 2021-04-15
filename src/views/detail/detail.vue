@@ -6,19 +6,21 @@
         <detail-top-goods :Goods="Goods"/>
         <detail-top-shopinfo :Shop="Shop"/>
         <sku-info-img :detailInfo="skuInfoImg"/>
+        <detail-goods-param :GoodsParam="GoodsParam"/>
       </Scroll> 
     </div>  
 </template>
 
 <script>
 //网络相关
-import {getDetaildata,Goods,Shop} from 'network/detail'
+import {getDetaildata,Goods,Shop,GoodsParam} from 'network/detail'
 //子组件相关
 import detailSwiper from './childDetail/detailSwiperTab.vue'
 import detailTopNav from './childDetail/detailTopNav.vue'
 import detailTopGoods from './childDetail/detailTopGoods.vue'
 import detailTopShopinfo from './childDetail/detailTopShopinfo.vue'
 import skuInfoImg from './childDetail/skuInfoImg.vue'
+import detailGoodsParam from './childDetail/detailGoodsParam.vue'
 //公共组件
 import Scroll from 'components/common/Scroll/Scroll.vue'
 export default {
@@ -29,6 +31,7 @@ export default {
     detailTopGoods,
     detailTopShopinfo,
     skuInfoImg,
+    detailGoodsParam,
     Scroll,
     },
   data() {
@@ -38,6 +41,7 @@ export default {
       Goods:{},
       Shop:{},
       skuInfoImg:{},
+      GoodsParam:{},
     }
   },
   methods: {
@@ -56,11 +60,13 @@ export default {
         //获取商品展示的图片
         this.skuInfoImg = res.result.detailInfo;
         // console.log(this.skuInfoImg);
+        //获取尺码和衣服详情
+        this.GoodsParam = new GoodsParam(res.result.itemParams.info,res.result.itemParams.rule)
+        // console.log(this.GoodsParam);
        })
     }
   },
   created() {
-   
     //根据id调用函数请求详细数据
     this.getDetaildata();
   },
