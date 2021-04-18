@@ -95,6 +95,7 @@ import {getHomeMultidata,getHomeImgdata} from 'network/home';
       /**事件监听相关方法 */
       //选项卡的吸顶
       swiperImgUpload(){
+        //获取组件的offserTop要用$el来获取
         this.tabcontrol = this.$refs.tabcontrol2.$el.offsetTop;
         // console.log(this.tabcontrol);
       },

@@ -1,10 +1,10 @@
 <template>
   <div class="home-img-item" @click="homeitemclick">
-    <img :src="goodsitem.show.img">
+    <img :src="showimg">
     <div class="home-img-info">
       <p>{{goodsitem.title}}</p>
       <span class="price">￥{{goodsitem.price}}</span>
-      <span class="sale">销量：{{goodsitem.sale}}</span>
+      <span class="sale">销量：{{showsale}}</span>
     </div>
   </div>
 </template>
@@ -20,13 +20,21 @@ export default {
         return {}
       }}
   },
-methods: {
-  //点击进入详情页面
-    homeitemclick(){    
-        // console.log(this.id);
-      this.$router.push('/detail/' + this.goodsitem.iid);
+  methods: {
+    //点击进入详情页面
+      homeitemclick(){    
+          // console.log(this.id);
+        this.$router.push('/detail/' + this.goodsitem.iid);
+      },
+  },
+  computed:{
+    showimg(){
+      return this.goodsitem.img || this.goodsitem.image || this.goodsitem.show.img;
     },
-},
+    showsale(){
+      return this.goodsitem.itemSale || this.goodsitem.sale
+    }
+  }
 }
 </script>
 

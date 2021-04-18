@@ -89,6 +89,7 @@ margin-bottom: 15px;
   border-top: 1px solid #d9d9d9;
   display: flex;
   justify-content: space-between;
+  flex-wrap:wrap;
 }
 .goodstwo img{
   width: 10px;

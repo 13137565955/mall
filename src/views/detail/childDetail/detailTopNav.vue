@@ -32,6 +32,8 @@ export default {
     },
     ishowclick(index){
       this.currentIndex = index;
+      // console.log(index);
+      this.$emit('itemClick',index);
     }
   },
 }

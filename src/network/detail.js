@@ -9,6 +9,11 @@ export function getDetaildata(iid) {
     }
   })
 }
+export function detailRecommend() {
+  return request({
+    url: '/recommend'
+  })
+}
 export class Goods {
   constructor(itemInfo, columns, services) {
     this.title = itemInfo.title;
