@@ -14,7 +14,7 @@
         <detailpingjia :detailpingjia="detailpingjia" ref="comment"/>
         <detail-recommend-img :detailRecommendImg="recommend" ref="recommend"/>
       </Scroll> 
-      <detail-bottom />
+      <detail-bottom @addToCart="addToCart"/>
       <top-img class="weizhi" @click.native="btntopimg" v-show="isShowBackTop"/>   
     </div>  
 </template>
@@ -67,6 +67,19 @@ export default {
     }
   },
   methods: {
+    //点击购物车将商品的详情加入到vuex当中去
+    addToCart(){
+      const produce = [];
+      produce.imgURL = this.TopImgSwiper[0];
+      produce.title = this.Goods.title;
+      produce.desc = this.Goods.desc;
+      produce.price = this.Goods.lowNowPrice;
+      produce.iid = this.iid;
+
+      this.$store.dispatch("addToCart",produce);
+     
+      // console.log(this.$store.state.cartList);
+    },
     //点击导航中的选项返回固定位置
     itemClick(index){
       // console.log(index);
@@ -96,7 +109,7 @@ export default {
         this.iid = this.$route.params.iid;
         //请求数据
         getDetaildata(this.iid).then(res =>{
-        // console.log(res.result);
+        console.log(res.result);
         //获取图片的轮播效果
         this.TopImgSwiper = res.result.itemInfo.topImages;
         //获取标题价格等描述
@@ -132,7 +145,7 @@ export default {
       this.itemjump = [];
       //把导航四个位置传入到数组中去
       this.itemjump.push(this.$refs.topnav.$el.offsetTop);
-        this.itemjump.push(this.$refs.param.$el.offsetTop);
+      this.itemjump.push(this.$refs.param.$el.offsetTop);
       this.itemjump.push(this.$refs.comment.$el.offsetTop);
       this.itemjump.push(this.$refs.recommend.$el.offsetTop);   
       // console.log(this.itemjump[1]);

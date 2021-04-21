@@ -28,7 +28,7 @@ export default {
   },
   methods: {
     backClick(){
-      this.$router.push('/home');
+      this.$router.back();
     },
     ishowclick(index){
       this.currentIndex = index;

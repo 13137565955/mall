@@ -1,9 +1,10 @@
 <template>
   <div>
-   <nav-bar class="nav">
-    <template v-slot:center><div>购物车(0)</div></template>
-  </nav-bar>
- </div>
+    <nav-bar class="nav">
+      <template v-slot:center><div>购物车(0)</div></template>  
+    </nav-bar>
+    <div v-for="item in $store.state.cartList" :key="item.iid"></div>
+  </div>
 </template>
 
 <script>
@@ -18,5 +19,9 @@ export default {
 .nav{
   background-color: var(--color-tint);
   color: #fff;
+}
+img{
+  width: 100px;
+  height: 100px;
 }
 </style>

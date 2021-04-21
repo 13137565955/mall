@@ -20,6 +20,7 @@ export class Goods {
     this.desc = itemInfo.desc; //评论
     this.newPrice = itemInfo.price;
     this.oldPrice = itemInfo.oldPrice;
+    this.lowNowPrice = itemInfo.lowNowPrice
     this.discount = itemInfo.discountDesc; //促销价 打折等
     this.columns = columns; //"销量 3887","收藏76人","默认快递"  
     this.services = services; //7天无理由  包邮
