@@ -16,6 +16,7 @@
       </Scroll> 
       <detail-bottom @addToCart="addToCart"/>
       <top-img class="weizhi" @click.native="btntopimg" v-show="isShowBackTop"/>   
+      <toast :isshow="isshow"/>
     </div>  
 </template>
 
@@ -35,6 +36,7 @@ import detailBottom from './childDetail/detailBottom.vue'
 //公共组件
 import Scroll from 'components/common/Scroll/Scroll.vue'
 import TopImg from 'components/content/TopImg/TopImg.vue'
+import Toast from 'components/content/Toast/Toast.vue'
 
 export default {
   name: 'detail',
@@ -50,6 +52,7 @@ export default {
     detailBottom,
     Scroll,
     TopImg,
+    Toast,
     },
   data() {
     return {
@@ -64,21 +67,23 @@ export default {
       recommend:[],
       itemjump:[],
       currentIndex:0,
+      isshow:false,
+      aaa:false
     }
   },
   methods: {
     //点击购物车将商品的详情加入到vuex当中去
     addToCart(){
-      const produce = [];
+      const produce = {};
       produce.imgURL = this.TopImgSwiper[0];
       produce.title = this.Goods.title;
       produce.desc = this.Goods.desc;
       produce.price = this.Goods.lowNowPrice;
       produce.iid = this.iid;
-
-      this.$store.dispatch("addToCart",produce);
      
-      // console.log(this.$store.state.cartList);
+      this.$store.dispatch("addToCart",produce);
+
+      this.isshow = true;      
     },
     //点击导航中的选项返回固定位置
     itemClick(index){
@@ -109,7 +114,7 @@ export default {
         this.iid = this.$route.params.iid;
         //请求数据
         getDetaildata(this.iid).then(res =>{
-        console.log(res.result);
+        // console.log(res.result);
         //获取图片的轮播效果
         this.TopImgSwiper = res.result.itemInfo.topImages;
         //获取标题价格等描述

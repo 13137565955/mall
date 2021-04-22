@@ -10,7 +10,7 @@ module.exports = {
       }
     },
     devServer: {
-      // host: '192.168.0.110',
+      host: '192.168.0.102',
     },
   }
 }
