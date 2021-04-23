@@ -16,7 +16,7 @@
       </Scroll> 
       <detail-bottom @addToCart="addToCart"/>
       <top-img class="weizhi" @click.native="btntopimg" v-show="isShowBackTop"/>   
-      <toast :isshow="isshow"/>
+      <!-- <toast :isshow="isshow" :message="message"/> -->
     </div>  
 </template>
 
@@ -36,7 +36,7 @@ import detailBottom from './childDetail/detailBottom.vue'
 //公共组件
 import Scroll from 'components/common/Scroll/Scroll.vue'
 import TopImg from 'components/content/TopImg/TopImg.vue'
-import Toast from 'components/content/Toast/Toast.vue'
+// import Toast from 'components/common/Toast/Toast.vue'
 
 export default {
   name: 'detail',
@@ -52,7 +52,7 @@ export default {
     detailBottom,
     Scroll,
     TopImg,
-    Toast,
+    // Toast,
     },
   data() {
     return {
@@ -68,7 +68,7 @@ export default {
       itemjump:[],
       currentIndex:0,
       isshow:false,
-      aaa:false
+      message:''
     }
   },
   methods: {
@@ -81,9 +81,19 @@ export default {
       produce.price = this.Goods.lowNowPrice;
       produce.iid = this.iid;
      
-      this.$store.dispatch("addToCart",produce);
-
-      this.isshow = true;      
+      // this.$store.dispatch("addToCart",produce).then(res=>{
+      //     // console.log(res);
+      //     this.message = res;
+      //     this.isshow = true;      
+      //     setTimeout(()=>{
+      //       this.isshow = false;
+      //       this.message = '';
+      //     },1500)
+      // });
+      this.$store.dispatch("addToCart",produce).then(res=>{
+          this.$toast.show(res,1500);
+      })
+    
     },
     //点击导航中的选项返回固定位置
     itemClick(index){

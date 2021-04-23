@@ -1,6 +1,6 @@
 <template>
   <div class="toast" v-show="isshow">
-    <span  @click="showtoast">添加物品成功</span>
+    <span>{{message}}</span>
   </div>
 </template>
 
@@ -8,15 +8,24 @@
 export default {
   name: 'Toast',
   components: {},
-  props:{
-    isshow:Boolean
+  // props:{
+  //   isshow:Boolean,
+  //   message:String
+  // },
+  data() {
+    return {
+      message:'',
+      isshow:false
+    }
   },
   methods: {
-    showtoast(){
-      // this.isshow = true;
-      // setTimeout(function(){
-      //   this.isshow = false;
-      // },1000)
+    show(message,duration =1000){
+      this.isshow = true;
+      this.message = message;
+      setTimeout(()=>{
+            this.isshow = false;
+            this.message = '';
+          },duration)
     }
   },
 }
@@ -29,7 +38,7 @@ export default {
   top: 50%;
   transform: translate(-50%,-50%);
   z-index: 9;
-  width: 150px;
+  width: 200px;
   height: 40px;
    text-align: center;
   background-color: rgba(0, 0, 0, 0.7);

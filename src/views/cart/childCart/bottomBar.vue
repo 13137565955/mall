@@ -4,7 +4,7 @@
     v-model="isSelectAll"></check-button>
     <span>全选</span>
     <span class="total-price">合计: ¥{{totalPrice}}</span>
-    <span class="buy-product">去计算({{$store.state.cartList.length}})</span>
+    <span class="buy-product" @click="calcClick">去计算({{totalproduce}})</span>
   </div>
 </template>
 
@@ -25,8 +25,16 @@
           return preValue + item.count * item.price
         }, 0).toFixed(2)
       },
+      totalproduce(){
+        const a = this.$store.state.cartList;
+        return a.filter(item =>{
+          return item.checked
+        }).reduce((preValue, item)=>{
+          return preValue + item.count
+        },0)
+      },
       isSelectAll() {
-        return this.$store.state.cartList.find(item => item.checked === false) === undefined;
+        return !this.$store.state.cartList.find(item => item.checked === false);
       }
     },
     methods: {
@@ -44,6 +52,14 @@
             item.checked = false;
           });
         }
+      },
+      calcClick(){
+          if(this.totalproduce <=0){
+            this.$toast.show('请添加商品!!!');
+          }else{
+            const res = '支付成功：' +this.totalPrice+'元'
+             this.$toast.show(res);
+          }
       }
     }
 	}
